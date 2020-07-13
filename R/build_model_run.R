@@ -19,6 +19,7 @@
 
 manage_model_run <- function(project_path, run_path, n_thread, os,
                              swat_vers, refresh, quiet) {
+  browser()
   ## Case .model_run exists already and no forced refresh considered
   if(dir.exists(run_path) & !refresh) {
     ## Check how many parallel threads are available
@@ -163,7 +164,7 @@ get_os <- function() {
 #' @importFrom stringr str_sub
 #' @keywords internal
 #'
-check_revision <- function(project_path, run_path, os, swat_exe, swat_vers) {
+check_revision <- function(project_path, run_path, os, swat_exe) {
   dir.create(run_path%//%"tmp")
 
   swat_files <- dir(project_path, full.names = TRUE) %>%
@@ -174,7 +175,7 @@ check_revision <- function(project_path, run_path, os, swat_exe, swat_vers) {
   if(os == "win") {
     # Batch file template required to run swat on Windows
     batch_temp <- c("@echo off",
-                    str_sub(run_path, 1, 2),
+                    #str_sub(run_path, 1, 2),
                     "cd"%&&%run_path%//%"tmp",
                     swat_exe,
                     "if %errorlevel% == 0 exit 0",
@@ -193,7 +194,7 @@ check_revision <- function(project_path, run_path, os, swat_exe, swat_vers) {
     trimws(.) %>%
     as.numeric(.)
 
-  Sys.sleep(1)
+  Sys.sleep(3)
 
   unlink(run_path%//%"tmp",recursive = TRUE, force = TRUE)
 
