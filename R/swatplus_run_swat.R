@@ -167,8 +167,8 @@ run_swatplus <- function(project_path, output, parameter = NULL,
   ## Manage the handling of the '.model_run' folder structure.
   swat_exe <- manage_model_run(project_path, run_path, n_thread, os,
                                "plus", refresh, quiet)
-  browser()
   swat_rev <- check_revision(project_path, run_path, os, swat_exe)
+  cat("swat revision is ",swat_rev,"\n")
   output <- translate_outfile_names(output, model_setup$output_interval, swat_rev)
 #-------------------------------------------------------------------------------
   # Write files
