@@ -168,7 +168,6 @@ run_swatplus <- function(project_path, output, parameter = NULL,
   swat_exe <- manage_model_run(project_path, run_path, n_thread, os,
                                "plus", refresh, quiet)
   swat_rev <- check_revision(project_path, run_path, os, swat_exe)
-  browser()
   cat("swat revision is ",swat_rev,"\n")
   output <- translate_outfile_names(output, model_setup$output_interval, swat_rev)
 #-------------------------------------------------------------------------------
