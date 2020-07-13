@@ -19,7 +19,6 @@
 
 manage_model_run <- function(project_path, run_path, n_thread, os,
                              swat_vers, refresh, quiet) {
-  browser()
   ## Case .model_run exists already and no forced refresh considered
   if(dir.exists(run_path) & !refresh) {
     ## Check how many parallel threads are available
@@ -79,7 +78,7 @@ build_model_run <- function(project_path, run_path, n_thread, os, swat_vers, qui
 
     # Batch file template required to run swat on Windows
     batch_temp <- c("@echo off",
-                    str_sub(run_path, 1, 2),
+                   # str_sub(run_path, 1, 2),
                     "cd"%&&%run_path,
                     swat_exe,
                     "if %errorlevel% == 0 exit 0",
