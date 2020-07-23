@@ -86,7 +86,7 @@ build_model_run <- function(project_path, run_path, n_thread, os, swat_vers, qui
 
   } else if(os == "unix") {
     swat_exe <- system("find"%&&%project_path%&&%"-executable -type f",
-                       intern = TRUE) %>%
+                        intern = T) %>%
       basename(.)
   }
 
@@ -187,13 +187,13 @@ check_revision <- function(project_path, run_path, os, swat_exe) {
     run_batch <- paste("cd", "cd"%&&%run_path%//%"tmp", "./"%&%swat_exe, sep = "; ")
   }
 
-  tmp_msg <- suppressWarnings(system(run_batch, intern = TRUE, timeout = 1)) %>%
+  tmp_msg <- suppressWarnings(system2(run_batch, timeout = 2)) %>%
     .[grepl("Revision", .)] %>%
     gsub("Revision", "", .) %>%
     trimws(.) %>%
     as.numeric(.)
 
-  Sys.sleep(3)
+  Sys.sleep(1)
 
   unlink(run_path%//%"tmp",recursive = TRUE, force = TRUE)
 
