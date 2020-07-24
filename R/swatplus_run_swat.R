@@ -235,7 +235,7 @@ run_swatplus <- function(project_path, output, parameter = NULL,
     } else if (os == "unix") {
       run_batch <- paste("cd", "cd"%&&%thread_path, "./"%&%swat_exe, sep = "; ")
     }
-    run_msg <- shell(run_batch, invisible = FALSE, stdout = TRUE)
+    run_msg <- shell(run_batch, invisible = FALSE)
 
     ## Read defined model outputs
     model_output <- read_swatplus_output(output, thread_path, swat_rev) %>%
