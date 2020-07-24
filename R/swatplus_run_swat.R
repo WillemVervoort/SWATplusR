@@ -217,7 +217,7 @@ run_swatplus <- function(project_path, output, parameter = NULL,
     thread_id <- worker[worker$worker_id == worker_id, 2][[1]]
     thread_path <- run_path%//%thread_id
     # thread_path <- run_path%//%"thread_1"
-
+    print(thread_path)
     ## Modify model parameters if parameter set was provided and write
     ## calibration file. If no parameters provided write empty calibration file
     if(is.null(parameter)) {
@@ -235,7 +235,7 @@ run_swatplus <- function(project_path, output, parameter = NULL,
     } else if (os == "unix") {
       run_batch <- paste("cd", "cd"%&&%thread_path, "./"%&%swat_exe, sep = "; ")
     }
-    run_msg <- shell(run_batch, invisible = FALSE)
+    run_msg <- system2(run_batch, invisible = FALSE, stdout = F)
 
     ## Read defined model outputs
     model_output <- read_swatplus_output(output, thread_path, swat_rev) %>%
