@@ -187,7 +187,7 @@ check_revision <- function(project_path, run_path, os, swat_exe) {
     run_batch <- paste("cd", "cd"%&&%run_path%//%"tmp", "./"%&%swat_exe, sep = "; ")
   }
   browser()
-  tmp_msg <- suppressWarnings(system(run_batch, timeout = 1)) 
+  tmp_msg <- suppressWarnings(system(run_batch, timeout = 1, intern = T)) 
   
   tmp_msg <- tmp_msg %>%
     .[grepl("Revision", .)] %>%
