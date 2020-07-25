@@ -78,7 +78,7 @@ build_model_run <- function(project_path, run_path, n_thread, os, swat_vers, qui
 
     # Batch file template required to run swat on Windows
     batch_temp <- c("@echo off",
-                    str_sub(run_path, 1, 2),
+                    "cd"%&&%str_sub(run_path, 1, 2),
                     "cd"%&&%run_path,
                     swat_exe,
                     "if %errorlevel% == 0 exit 0",
@@ -174,7 +174,7 @@ check_revision <- function(project_path, run_path, os, swat_exe) {
   if(os == "win") {
     # Batch file template required to run swat on Windows
     batch_temp <- c("@echo off",
-                    str_sub(run_path, 1, 2),
+                    "cd"%&&%str_sub(run_path, 1, 2),
                     "cd"%&&%run_path%//%"tmp",
                     swat_exe,
                     "if %errorlevel% == 0 exit 0",
@@ -187,7 +187,7 @@ check_revision <- function(project_path, run_path, os, swat_exe) {
     run_batch <- paste("cd", "cd"%&&%run_path%//%"tmp", "./"%&%swat_exe, sep = "; ")
   }
 
-  tmp_msg <- suppressWarnings(system2(run_batch, timeout = 1, stdout = TRUE)) %>%
+  tmp_msg <- suppressWarnings(system2(run_batch, timeout = 1, stdout = "logfileversion.txt")) %>%
     .[grepl("Revision", .)] %>%
     gsub("Revision", "", .) %>%
     trimws(.) %>%
@@ -195,7 +195,7 @@ check_revision <- function(project_path, run_path, os, swat_exe) {
 
   Sys.sleep(1)
 
-  unlink(run_path%//%"tmp",recursive = TRUE, force = TRUE)
+  # unlink(run_path%//%"tmp",recursive = TRUE, force = TRUE)
 
   return(tmp_msg)
 }
