@@ -186,9 +186,8 @@ check_revision <- function(project_path, run_path, os, swat_exe) {
   } else if(os == "unix") {
     run_batch <- paste("cd", "cd"%&&%run_path%//%"tmp", "./"%&%swat_exe, sep = "; ")
   }
-  #browser()
-  tmp_msg <- suppressWarnings(system(run_batch, timeout = 1, intern = T,
-                                     show.output.on.console = T)) 
+  browser()
+  tmp_msg <- suppressWarnings(system(run_batch, timeout = 1, intern = T)) 
   
   tmp_msg <- tmp_msg %>%
     .[grepl("Revision", .)] %>%
@@ -198,7 +197,7 @@ check_revision <- function(project_path, run_path, os, swat_exe) {
   
   Sys.sleep(1)
 
-  # unlink(run_path%//%"tmp",recursive = TRUE, force = TRUE)
+  unlink(run_path%//%"tmp",recursive = TRUE, force = TRUE)
 
   return(tmp_msg)
 }
