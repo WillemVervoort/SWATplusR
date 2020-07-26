@@ -90,7 +90,7 @@ build_model_run <- function(project_path, run_path, n_thread, os, swat_vers, qui
       basename(.)
   }
 
-  # Make shure that there is exactly one executable in the SWAT project folder
+  # Make sure that there is exactly one executable in the SWAT project folder
   if(length(swat_exe) == 0) stop("No SWAT executable found in the project folder!")
   if(length(swat_exe) > 1) stop("Project folder contains more than one executable!")
 
@@ -187,7 +187,7 @@ check_revision <- function(project_path, run_path, os, swat_exe) {
     run_batch <- paste("cd", "cd"%&&%run_path%//%"tmp", "./"%&%swat_exe, sep = "; ")
   }
   browser()
-  tmp_msg <- suppressWarnings(system(run_batch, timeout = 1, intern = T)) 
+  tmp_msg <- suppressWarnings(system(file.path(run_batch), timeout = 1, intern = T)) 
   
   tmp_msg <- tmp_msg %>%
     .[grepl("Revision", .)] %>%
