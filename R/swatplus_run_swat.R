@@ -237,7 +237,7 @@ run_swatplus <- function(project_path, output, parameter = NULL,
     }
     #browser()
     run_msg <- system(file.path(run_batch), intern = T)
-    writeLines(run_msg,"batchrunlog.txt")
+    #writeLines(run_msg,"batchrunlog.txt")
     ## Read defined model outputs
     model_output <- read_swatplus_output(output, thread_path, swat_rev) %>%
       extract_output(output, .)

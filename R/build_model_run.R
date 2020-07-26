@@ -188,7 +188,7 @@ check_revision <- function(project_path, run_path, os, swat_exe) {
   }
   #browser()
   tmp_msg <- suppressWarnings(system(file.path(run_batch), timeout = 1, intern = T)) 
-  
+  writeLines(tmp_msg,"revisonlogfile.txt")
   tmp_msg <- tmp_msg %>%
     .[grepl("Revision", .)] %>%
     gsub("Revision", "", .) %>%
